@@ -1,2 +1,4 @@
-package org.projeto.javafx.projetosimplejavafx.util;public class Al {
+package org.projeto.javafx.projetosimplejavafx.util;
+
+public class Al {
 }

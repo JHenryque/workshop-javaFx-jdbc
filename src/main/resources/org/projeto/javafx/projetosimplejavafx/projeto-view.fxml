@@ -2,16 +2,37 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.projeto.javafx.projetosimplejavafx.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
-
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
-s
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.projeto.javafx.projetosimplejavafx.MainViewController">
+   <content>
+      <VBox prefHeight="307.0" prefWidth="512.0" style="-fx-background-color: #EEF5FF;">
+         <children>
+            <MenuBar prefHeight="28.0" prefWidth="597.0" style="-fx-background-color: #5FBDFF;">
+              <menus>
+                <Menu mnemonicParsing="false" text="Registration">
+                  <items>
+                    <MenuItem fx:id="menuItemSeller" mnemonicParsing="false" onAction="#oMenuItemSallerAction" text="Seller" />
+                        <MenuItem fx:id="menuItemDepartment" mnemonicParsing="false" onAction="#oMenuItemDepartmentAction" text="Department" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem fx:id="menuItemAbort" mnemonicParsing="false" onAction="#oMenuItemAbortAction" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <Label>
+               <VBox.margin>
+                  <Insets bottom="50.0" left="150.0" top="150.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>
