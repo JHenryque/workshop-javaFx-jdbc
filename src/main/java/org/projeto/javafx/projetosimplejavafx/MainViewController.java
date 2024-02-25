@@ -7,11 +7,14 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import org.projeto.javafx.projetosimplejavafx.HelloApplication;
+import org.projeto.javafx.projetosimplejavafx.model.services.DepartmentService;
 import org.projeto.javafx.projetosimplejavafx.util.Alerts;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 public class MainViewController implements Initializable {
 
@@ -32,12 +35,16 @@ public class MainViewController implements Initializable {
     }
 
     public void oMenuItemDepartmentAction() {
-        System.out.println("MenuItemDepartment");
+        //System.out.println("MenuItemDepartment");
+        loadView("Department-view.fxml", (DepartmentController controller) -> {
+            controller.setDepartmentService(new DepartmentService());
+            controller.updateTableView();
+        });
     }
 
     public void oMenuItemAbortAction() {
         //System.out.println("MenuItemabort");
-        loadView("About-view.fxml");
+        loadView("About-view.fxml", x -> {});
     }
 
     @Override
@@ -45,7 +52,7 @@ public class MainViewController implements Initializable {
 
     }
 
-    public synchronized void loadView(String windows) {
+    public synchronized <T> void loadView(String windows, Consumer<T> initializingAction) {
         try {
             FXMLLoader loadView = new FXMLLoader(HelloApplication.class.getResource(windows));
             VBox newVbox = loadView.load();
@@ -58,9 +65,33 @@ public class MainViewController implements Initializable {
             mainVBox.getChildren().add(mainMenu);
             mainVBox.getChildren().addAll(newVbox.getChildren());
 
+            T controller = loadView.getController();
+            initializingAction.accept(controller);
+
         }
         catch (IOException e) {
             Alerts.showAlert("Erro de compilaçao", "erro information", "renecie e lige", Alert.AlertType.ERROR);
         }
     }
+
+ /*   private synchronized void loadView2(String absoluteName) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+            VBox newVBox = loader.load();
+
+            Scene mainScene = HelloApplication.getMainScene();
+            VBox mainVBox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
+
+            Node mainMenu = mainVBox.getChildren().get(0);
+            mainVBox.getChildren().clear();
+            mainVBox.getChildren().add(mainMenu);
+            mainVBox.getChildren().addAll(newVBox.getChildren());
+
+            DepartmentController controller = loader.getController();
+            controller.setDepartmentService(new DepartmentService());
+            controller.updateTableView();
+        } catch (IOException e) {
+            Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }*/
 }
